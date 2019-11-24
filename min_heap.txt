@@ -1,0 +1,42 @@
+//min_heap has the proper that the children of a particular node are greater than or equal to the parent node
+//it is a complete binary tree
+
+
+
+//find minimun child
+int find_min(vector<int> &heap,int curr){
+	
+	if(curr==heap.size()-1)return curr;//last element
+	if(2*curr+1==heap.size()-1)return 2*curr+1;//has only left child
+	if(curr==heap.size()-2)return curr;//has no children
+	return ((heap[2*curr+1]<heap[2*curr+2])?2*curr+1:2*curr+2);//has two children
+}
+
+
+//delete a node and rearrange
+void heapify_down(vector<int> &heap,int s_indx){
+	int curr=0,child;
+	heap[curr]=heap[s_indx];
+	heap.pop_back();
+	if(heap.size()==0)return;
+	
+	child=find_min(heap,curr);
+	while(heap[curr]>heap[child]){
+		swap(heap[curr],heap[child]);
+		curr=child;
+		child=find_min(heap,curr);
+	}
+}
+
+
+
+//insert element into the heap
+void heapify_up(vector<int> &heap,int s_indx){
+	int parent=(s_indx-1)/2,curr=s_indx;
+	
+	while(heap[curr]<heap[parent]){
+		swap(heap[curr],heap[parent]);
+		curr=parent;
+		parent=(parent-1)/2;
+	}
+}

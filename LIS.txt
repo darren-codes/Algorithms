@@ -1,0 +1,25 @@
+void makeLIS(int a, vector<int> &lis){
+//makes the subsequence
+//not necessarily the right subsequence
+
+	int s=0,e=lis.size()-1,mid;
+	while(s<=e){
+		mid=(s+e)/2;
+		if(lis[mid]==a)return;//element exists
+		if(lis[mid]<a)s=mid+1;
+		else e=mid-1;
+	}
+	if(s<(lis.size()))lis[s]=a;//intermediate element
+	if(s>=lis.size())lis.push_back(a);//bigger element
+	
+}
+
+int findLIS(vector<int> &a, vector<int> &lis){
+//function to be declared in main();
+//eg:int sizelis=findLIS(arr,lis);//arr is the input vector, length of lis vector is the output
+
+	fr(i,0,a.size()){
+		makeLIS(a[i],lis);
+	}
+	return lis.size();
+}

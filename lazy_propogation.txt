@@ -1,0 +1,121 @@
+//range update:
+int changeR(int x, int y, int u, int s, int e, int i, int tree[], int lazy[]){
+//starting value of the range, ending value of the range, updating value, starting of the tree......
+	int mid=(s+e)/2;
+
+	
+	if(y<s || x>e){//completely outside
+
+		if(lazy[i]!=0){
+
+			tree[i]+=(e-s+1)*lazy[i];
+
+			if(s!=e){
+
+				lazy[2*i+1]+=lazy[i];
+
+				lazy[2*i+2]+=lazy[i];
+
+			}
+
+			lazy[i]=0;
+
+		}
+
+		//cout<<i<<" "<<lazy[i]<<"\n";
+
+		return tree[i];
+
+	}
+
+	
+	if(x<=s && y>=e){//completely inside
+
+		lazy[i]+=u;
+
+		tree[i]+=(e-s+1)*lazy[i];
+
+		if(s!=e){
+
+			lazy[2*i+1]+=lazy[i];
+
+			lazy[2*i+2]+=lazy[i];
+
+		}
+
+		lazy[i]=0;
+
+	}
+
+	else {
+
+		if(lazy[i]!=0){
+
+			lazy[2*i+1]+=lazy[i];
+
+			lazy[2*i+2]+=lazy[i];
+
+			lazy[i]=0;
+
+		}
+
+		tree[i]=changeR(x,y,u,s,mid,2*i+1,tree,lazy)+changeR(x,y,u,mid+1,e,2*i+2,tree,lazy);
+
+	}
+
+	//cout<<i<<" "<<lazy[i]<<"\n";
+
+	return tree[i];
+
+}
+//use the lazy node, update the tree, propogate laziness to the children
+
+
+//ranged query 
+int query(int x,int y,int s,int e,int i,int tree[],int lazy[]){
+
+	if(x>e || y<s) return 0;//completely out
+
+	if(x<=s && y>=e){ //completely in
+
+		if(lazy[i]!=0){
+
+			tree[i]+=(e-s+1)*lazy[i];
+
+			if(s!=e){
+
+				lazy[2*i+1]+=lazy[i];
+
+				lazy[2*i+2]+=lazy[i];
+
+			}
+
+			lazy[i]=0;
+
+		}
+
+		return tree[i];
+
+	}
+
+	else {
+
+		int mid=(s+e)/2;
+
+		if(lazy[i]!=0){
+
+			tree[i]+=(e-s+1)*lazy[i];
+
+			lazy[2*i+1]+=lazy[i];
+
+			lazy[2*i+2]+=lazy[i];
+
+			lazy[i]=0;
+
+		}
+
+		return (query(x,y,s,mid,2*i+1,tree,lazy)+query(x,y,mid+1,e,2*i+2,tree,lazy));
+
+	}
+
+}

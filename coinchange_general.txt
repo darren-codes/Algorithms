@@ -1,0 +1,15 @@
+//for sorted coin values
+
+int coinc(int val,vector<int> &coin,vector<int> &dp){
+	int sum=99999,temp=0;
+	if(val==0)return 0;
+	if(val<0)return 99999;
+	if(dp[val]!=99999)return dp[val];
+	
+	for(int i=0;i<coin.size() && coin[i]<=val;++i){
+		temp=1+coinc(val-coin[i],coin,dp);
+		if(temp<sum)sum=temp;
+	}
+	dp[val]=sum;
+	return dp[val];
+}

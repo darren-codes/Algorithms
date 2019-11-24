@@ -1,0 +1,21 @@
+float npow(float a, ll n){
+    float x=a,temp=1.0;
+    while(n>0){
+        if(n%2!=0)temp*=x;
+        x=x*x;
+        n>>=1;
+    }
+
+    return temp;
+}
+
+
+float nroot(float a, float n){
+    float x=1.0;
+    fr(i,0,6)x=x-(npow(x,n)-a)/(n*npow(x,n-1));
+
+    return x;
+}
+
+//to find the nth root of a, use nroot(a,n);
+//the idea behind it is Newton's Formula. 

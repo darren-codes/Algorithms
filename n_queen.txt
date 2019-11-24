@@ -1,0 +1,22 @@
+//using recursive backtracking(similar to brute force)
+
+int possbl(int c,int k,int arr[]){//check whether it is possible to place a queen in cth columm and kth row
+	for(int i=0;i<c;++i){
+		if(arr[i]==k || abs(i-c)==abs(k-arr[i]))return 0;
+	}
+	return 1;
+}
+
+void backt(int c,int arr[]){
+	if(c==8){
+		return;
+	}
+	for(int i=0;i<8;++i){
+		if(possbl(c,i,arr)){//check possibility
+			arr[c]=i;//place queen
+			backt(c+1,arr);//look at next column
+		}
+	}
+}
+
+//arr[column]=row

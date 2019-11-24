@@ -1,0 +1,35 @@
+//to build a segment tree:
+int build(int i,int s,int e,int node[], int arr[]){//initial node index,starting array index,ending array index...
+	if(s==e)node[i]=arr[s];
+	else{
+		int mid=(s+e)/2;
+		node[i]= build(2*i+1,s,mid,node,arr)+build(2*i+2,mid+1,e,node,arr);
+	}
+	return node[i];
+	}
+
+
+//to update a value:
+int update(int val,int idx,int i,int s,int e,int node[]){//updating value,value index,node....
+	if(s==e)node[i]+=val;
+	else{
+		int mid=(s+e)/2;
+		if(idx<=mid)node[i]=update(val,idx,2*i+1,s,mid,node)+ node[2*i+2];
+		else node[i]=update(val,idx,2*i+2,mid+1,e,node)+ node[2*i+1];
+	}
+	return node[i];
+	}
+
+
+//ranged query:
+int query(int r1,int r2,int i,int s,int e,int node[]){//starting value of range,ending value of range,initial node index...
+
+	if(r1<=s && e<=r2)return node[i];
+
+	if(e<r1 || s>r2)return 0;
+
+	int mid=(s+e)/2;
+
+	return query(r1,r2,2*i+1,s,mid,node)+query(r1,r2,2*i+2,mid+1,e,node);
+
+	}

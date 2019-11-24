@@ -1,0 +1,8 @@
+to get the lexicograpic next permututation, use 
+
+next_permutation(a,b);
+a is iterator to the beginning 
+b is iterator to the end+1
+
+if permutation is possible returns 1 and rearranges in the lexicographically next biggest permutation.
+else returns 0 and doesn't rearrange.

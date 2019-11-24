@@ -1,0 +1,31 @@
+//precomputed array
+//x[i][j] hold the value of the sum of the rectangle from 1,1 to i,j
+//row 0 and n+1 along with column 0 and n+1 have value 0
+
+fr(i,0,n+2){
+   	fr(j,0,n+2){
+   		if(i==0 || i==n+1 || j==0 || j==n+1)x[i][j]=0;
+   		else {
+   			cin>>x[i][j];
+   			x[i][j]=x[i][j]+x[i-1][j]+x[i][j-1]-x[i-1][j-1];
+   		}
+   	}
+   }
+
+
+   int over_max=x[1][1],current_max=0;
+   //over_max is the output
+   fr(i,1,n+1){
+   	fr(j,i,n+1){
+   		int from=1;
+   		fr(k,1,n+1){
+   			if(current_max<0){
+   				from=k;
+   				current_max=x[j][k]-x[j][k-1]-x[i-1][k]+x[i-1][k-1];
+   			}
+   			else current_max=x[j][k]-x[j][from-1]-x[i-1][k]+x[i-1][from-1];
+   			
+   			if(current_max>over_max)over_max=current_max;
+   		}
+   	}
+   }

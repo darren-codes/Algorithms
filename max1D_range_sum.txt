@@ -1,0 +1,9 @@
+//array named a
+int max_up=-1*2<<20,curr_max=-1*2<<20;
+//max sub array value uptill now, curr max subarray value
+
+	for(int i=0;i<a.size();++i){
+		if(curr_max<0)curr_max=a[i];
+		else curr_max+=a[i];
+		max_up=max(curr_max,max_up);
+	}

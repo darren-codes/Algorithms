@@ -1,0 +1,41 @@
+//using a vector<vector<pair<ll,ll>>>
+//essentially follow the nlogk(k is size of LIS) method of making LIS but for every better possibility append the number to the appropriate row and store a reference to the previous row's last element
+
+
+void printlis(vector<vector<pair<ll,ll>>> &lis,ll curr,ll idx){
+	if(curr!=0){
+		printlis(lis,curr-1,lis[curr][idx].second);
+		cout<<lis[curr][idx].first<<endl;
+		
+	}
+	else cout<<lis[curr][idx].first<<endl;
+	return;
+}
+
+void makelis(ll temp, vector<vector<pair<ll,ll>>> &lis){
+	int s=0,e=lis.size()-1,mid;
+	if(temp<lis[0][lis[0].size()-1].first){
+		lis[0].pb(mp(temp,-1));
+		return;
+	}
+	if(temp > lis[e][lis[e].size()-1].first){
+		vector<pair<ll,ll>> y;
+		y.pb(mp(temp,lis[e].size()-1));
+		lis.pb(y);
+		return;
+	}
+
+	while(s<=e){
+		mid=(s+e)/2;
+		if(lis[mid][lis[mid].size()-1].first==temp){
+			s=mid;
+			break;
+		}
+
+		if(lis[mid][lis[mid].size()-1].first<temp)s=mid+1;
+		else e=mid-1;
+	}
+	
+	lis[s].pb(mp(temp,lis[s-1].size()-1));
+
+}

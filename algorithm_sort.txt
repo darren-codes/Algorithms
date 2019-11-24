@@ -1,0 +1,17 @@
+sort(a,b);      [a,b)
+a is iterator(pointer) to initial element.
+b is iterator(pointer) to final+1 element.(as last element isn't included)
+
+sorts by default in ascending order.
+
+
+
+or
+create user defined bool function;
+
+bool f_n(para1,para2){ //parameters being compared
+return //condition//;
+}
+then
+
+sort(a,b,f_n);//f_n without parenthesis

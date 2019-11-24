@@ -1,0 +1,14 @@
+to find (a^b), where b is very very big use
+
+k=1;
+m=a;
+while(b>0){
+if(b%2==1){
+k=k*m;
+}
+b=b/2;
+m=m*m;
+}
+
+
+Note: The idea behind this is converting a number to binary using division with 2.

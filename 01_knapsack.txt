@@ -1,0 +1,13 @@
+int knap(vector<int> &wt,vector<int> &val,int i, int s,vector<vector<int>> &dp){
+
+    if(s<=0 || i>=wt.size())return 0;
+    if(s<wt[i]) return knap(wt,val,i+1,s,dp);
+    if(dp[i][s]!=-1)return dp[i][s];
+    
+    int a1=knap(wt,val,i+1,s,dp);//don't select
+    int a2=val[i]+knap(wt,val,i+1,s-wt[i],dp);//select
+    dp[i][s]=max(a1,a2);
+    return dp[i][s];
+}
+
+//dp table is an [n][s+1] table used for memoization
